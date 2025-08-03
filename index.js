@@ -1,31 +1,35 @@
-const express = require('express')
-const cors = require('cors')
-const app = express()
-const port = 3000
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const port = 3000;
 
-
-//middlewares
+// Middlewares
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
-// imporacion de las rutas
+// Importación de rutas
+const usersRouter = require('./routes/routerUser');
+const categoriaRouter = require('./routes/catergoriaRouter');
+const productRouter = require('./routes/products');
+const ordersRouter = require('./routes/orders');
+const invoicesRouter = require('./routes/invoices');
+const addressesRouter = require('./routes/addresses');
+const authRouter = require('./routes/authRoutes');
 
-const usersRouter = require('./routes/routerUser')
-const catergoriaRouter = require('./routes/catergoriaRouter')
+// Usar rutas
+app.use('/api/users', usersRouter);
+app.use('/api/category', categoriaRouter);
+app.use('/api/products', productRouter);
+app.use('/api/orders', ordersRouter);
+app.use('/api/invoices', invoicesRouter);
+app.use('/api/addresses', addressesRouter);
+app.use('/api/auth', authRouter);
 
-
-//rutas
-app.use('/api/users', require('./routes/routerUser'));
-app.use('/api/category', require('./routes/catergoriaRouter'))
-app.use('/api/products', require('./routes/products'));
-app.use('/api/orders', require('./routes/orders'));
-app.use('/api/invoices', require('./routes/invoices'));
-app.use('/api/addresses', require('./routes/addresses'));
-
+// Ruta principal
 app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+  res.send('Hello World!');
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Servidor corriendo en http://localhost:${port}`);
+});
