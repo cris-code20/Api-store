@@ -1,5 +1,7 @@
+require('dotenv').config();
+
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = process.env.JWT_SECRET || 'clave_secreta';
+const JWT_SECRET = process.env.JWT_SECRET || 'Metano04';
 
 exports.authenticate = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -12,7 +14,9 @@ exports.authenticate = (req, res, next) => {
     const payload = jwt.verify(token, JWT_SECRET);
     req.user = payload;
     next();
-  } catch {
+  } catch(error) {
+    console.log(error.message);
+    console.log(error);
     return res.status(403).json({ message: 'Token inválido' });
   }
 };
