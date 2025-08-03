@@ -6,6 +6,7 @@ const port = 3000;
 // Middlewares
 app.use(express.json());
 app.use(cors());
+app.use('/uploads', express.static('uploads')) 
 
 // Importación de rutas
 const usersRouter = require('./routes/routerUser');

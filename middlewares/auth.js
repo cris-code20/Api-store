@@ -15,8 +15,6 @@ exports.authenticate = (req, res, next) => {
     req.user = payload;
     next();
   } catch(error) {
-    console.log(error.message);
-    console.log(error);
     return res.status(403).json({ message: 'Token inválido' });
   }
 };
